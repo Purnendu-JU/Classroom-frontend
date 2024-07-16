@@ -12,7 +12,7 @@ const JoinClass = () => {
       if(classCode.length !== 6){
         throw new Error('Please Enter correct code');
       }
-      const response = await fetch('https://classroom-backend-uv6g.onrender.com/api/auth/joinclass', {
+      const response = await fetch('https://classroom-backend-one.vercel.app/api/auth/joinclass', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
