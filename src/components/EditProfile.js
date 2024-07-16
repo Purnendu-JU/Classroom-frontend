@@ -27,7 +27,7 @@ export default function EditProfile() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('https://classroom-backend-uv6g.onrender.com/api/auth/editprofile', {
+    const response = await fetch('https://classroom-backend-one.vercel.app/api/auth/editprofile', {
       method: 'PUT',
       headers:{
         'Content-Type': 'application/json',
