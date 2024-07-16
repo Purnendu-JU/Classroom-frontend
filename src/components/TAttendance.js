@@ -14,7 +14,7 @@ const TAttendance = () => {
 
   const fetchAttendanceRecords = async () => {
     try {
-      const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/getattendance', {
+      const res = await fetch('https://backend-classroom.vercel.app/api/auth/getattendance', {
         method: 'GET',
         headers: {
           'auth-token': localStorage.getItem('token'),
@@ -30,7 +30,7 @@ const TAttendance = () => {
 
   const handleGenerateCode = async () => {
     try {
-      const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/generateattendance', {
+      const res = await fetch('https://backend-classroom.vercel.app/api/auth/generateattendance', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const TAttendance = () => {
     }
 
     try {
-      const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/disablecode', {
+      const res = await fetch('https://backend-classroom.vercel.app/api/auth/disablecode', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
