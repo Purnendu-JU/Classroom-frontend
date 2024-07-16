@@ -34,7 +34,7 @@ export default function SignUp() {
       alert('Password and confirm password not same');
       return;
     }
-    const response = await fetch('https://classroom-backend-uv6g.onrender.com/api/auth/signup', {
+    const response = await fetch('https://classroom-backend-one.vercel.app/api/auth/signup', {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
