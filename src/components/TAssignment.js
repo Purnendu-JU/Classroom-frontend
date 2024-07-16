@@ -13,7 +13,7 @@ const TAssignment = () => {
 
     const fetchAssignments = async () => {
         try {
-            const res = await fetch('https://classroom-backend-one.vercel.app/auth/getassignment', {
+            const res = await fetch('https://backend-classroom.vercel.app/api/auth/getassignment', {
                 method: 'GET',
                 headers: {
                     'auth-token': localStorage.getItem('token'),
@@ -37,7 +37,7 @@ const TAssignment = () => {
         formData.append('file', assignmentFile);
 
         try {
-            const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/postassignment', {
+            const res = await fetch('https://backend-classroom.vercel.app/api/auth/postassignment', {
                 method: 'POST',
                 headers: {
                     'auth-token': localStorage.getItem('token'),
