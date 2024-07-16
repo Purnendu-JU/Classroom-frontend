@@ -1,94 +1,98 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import './App.css';
-import Landing from './LandingPage';
-import Login from './LoginPage.js';
-import SignUp from './Signup.js';
-import Navbar from './components/Navbar.js';
-import SwipeableTemporaryDrawer from './components/Sidebar.js';
-import SAttendance from './components/SAttendance.js';
-import TAttendance from './components/TAttendance.js';
-import Community from './components/Community.js';
-import Chatbot from './components/Chatbot.js';
-import Home from './components/Home.js';
-import TAssignment from './components/TAssignment.js';
-import SAssignment from './components/SAssignment.js';
-import SubmitAssignment from './components/SubmitAssignment'; // Import SubmitAssignment
-import AnnouncementSection from './components/Announcement.js';
-import InsideClass from './components/InsideClass.js';
-import JoinClass from './components/JoinClass.js';
-import CreateClass from './components/CreateClass.js';
-import EditProfile from './components/EditProfile.js';
+import React, { useState } from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+// import Link from '@mui/material/Link';
+import {Link, useNavigate} from "react-router-dom";
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+const theme = createTheme();
 
-const PrivateRoute = ({ element }) => {
-  const token = localStorage.getItem('token');
-  return token ? element : <Navigate to="/" />;
-};
-
-const RoleBasedRedirect = ({ path }) => {
+export default function Login() {
   const navigate = useNavigate();
-  const [role, setRole] = useState(null);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const response = await fetch('https://backend-classroom.vercel.app/api/auth/login',{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email: email, password: password})
+    });
+    const json = await response.json();
+    if(json.success){
+      localStorage.setItem('token', json.authtoken);
+      // window.location.href = '/landing';
+      navigate('/landing', { replace: true });
+    }
+    else{
+      alert("Invalid credentials");
+    }
+  };
 
-  useEffect(() => {
-    const checkRoleAndRedirect = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/getrole', {
-            method: 'GET',
-            headers: {
-              'auth-token': localStorage.getItem('token'),
-              'auth': localStorage.getItem('classToken')
-            },
-          });
-          const data = await res.json();
-          console.log(data.role);
-          setRole(data.role);
-          if (data.role === 'teacher') {
-            if (path === 'assignment') navigate('/tassignment');
-            if (path === 'attendance') navigate('/tattendance');
-          } else {
-            if (path === 'assignment') navigate('/sassignment');
-            if (path === 'attendance') navigate('/sattendance');
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    };
-
-    checkRoleAndRedirect();
-  }, [navigate, path]);
-
-  return null;
-};
-
-const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/landing" element={<PrivateRoute element={<Landing />} />} />
-        <Route path="/navbar" element={<PrivateRoute element={<Navbar />} />} />
-        <Route path="/sidebar" element={<PrivateRoute element={<SwipeableTemporaryDrawer />} />} />
-        <Route path="/sattendance" element={<PrivateRoute element={<SAttendance />} />} />
-        <Route path="/tattendance" element={<PrivateRoute element={<TAttendance />} />} />
-        <Route path="/tassignment" element={<PrivateRoute element={<TAssignment />} />} />
-        <Route path="/sassignment" element={<PrivateRoute element={<SAssignment />} />} />
-        <Route path="/submit-assignment/:title" element={<PrivateRoute element={<SubmitAssignment />} />} /> {/* Add new route */}
-        <Route path="/community" element={<PrivateRoute element={<Community />} />} />
-        <Route path="/chatbot" element={<PrivateRoute element={<Chatbot />} />} />
-        <Route path="/home" element={<PrivateRoute element={<Home />} />} />
-        <Route path="/announcement" element={<PrivateRoute element={<AnnouncementSection />} />} />
-        <Route path="/insideclass" element={<PrivateRoute element={<InsideClass />} />} />
-        <Route path="/joinclass" element={<PrivateRoute element={<JoinClass />} />} />
-        <Route path="/createclass" element={<PrivateRoute element={<CreateClass />} />} />
-        <Route path="/editprofile" element={<PrivateRoute element={<EditProfile />} />} />
-        <Route path="/rolebasedredirect/:path" element={<PrivateRoute element={<RoleBasedRedirect />} />} />
-      </Routes>
-    </Router>
-  );
-};
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            border: 'solid thick #FC6736',
+            borderRadius: '2%',
+            opacity: '90%',
+            backgroundColor: 'lavenderblush',
+          }}
+        >
+          <Avatar sx={{ m: 2, bgcolor: 'secondary.main', height: '60px', width: '60px' }}></Avatar>
+          <Typography component="h2" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2, mr: 2, ml: 2 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              type="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
 
-export default App;
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 3, height: '40px' }}>
+              Sign In
+            </Button>
+            <Grid container sx={{ mb: '30px' }}>
+              <Grid item>
+                <Link to="/signup" variant="body2">
+                  Don't have an account? Sign Up
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
+}
