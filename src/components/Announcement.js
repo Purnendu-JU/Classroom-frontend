@@ -12,7 +12,7 @@ const AnnouncementSection = () => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await fetch('https://classroom-backend-one.vercel.app/api/auth/getannouncement', {
+        const response = await fetch('https://backend-classroom.vercel.app/api/auth/getannouncement', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ const AnnouncementSection = () => {
       formData.append('content', announcementContent.trim());
       files.forEach(file => formData.append('files', file));
 
-      const response = await fetch('https://classroom-backend-one.vercel.app/api/auth/postannouncement', {
+      const response = await fetch('https://backend-classroom.vercel.app/api/auth/postannouncement', {
         method: 'POST',
         headers: {
           'auth-token': localStorage.getItem('token'),
