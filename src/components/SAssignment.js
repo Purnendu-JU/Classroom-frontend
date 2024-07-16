@@ -12,7 +12,7 @@ const SAssignment = () => {
 
     const fetchAssignments = async () => {
         try {
-            const res = await fetch('https://classroom-backend-uv6g.onrender.com/api/auth/getassignment', {
+            const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/getassignment', {
                 method: 'GET',
                 headers: {
                     'auth-token': localStorage.getItem('token'),
@@ -55,7 +55,7 @@ const SAssignment = () => {
                                         Question -
                                         <MuiLink
                                             component={Link}
-                                            to={`https://classroom-backend-uv6g.onrender.com/files/${assignment.file}`}
+                                            to={`https://drive.google.com/uc?id=${assignment.file}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
@@ -66,7 +66,7 @@ const SAssignment = () => {
                                                 Solution -
                                                 <MuiLink
                                                     component={Link}
-                                                    to={`https://classroom-backend-uv6g.onrender.com/files/${assignment.studentFile}`}
+                                                    to={`https://drive.google.com/uc?id=${assignment.studentFile}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
@@ -74,7 +74,7 @@ const SAssignment = () => {
                                                 </MuiLink>
                                             </div>
                                         ) : (
-                                            <Button style={{'marginLeft': '15em'}}
+                                            <Button style={{ marginLeft: '15em' }}
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={() => handleOpenSubmit(assignment.title)}
