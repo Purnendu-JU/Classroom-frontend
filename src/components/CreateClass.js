@@ -17,7 +17,7 @@ const CreateClass = () => {
         else if(subjectName.length < 5){
           throw new Error('Enter a proper subject name');
         }
-        const response = await fetch('https://classroom-backend-one.vercel.app/api/auth/createclass', {
+        const response = await fetch('https://backend-classroom.vercel.app/api/auth/createclass', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
