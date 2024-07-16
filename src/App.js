@@ -34,7 +34,7 @@ const RoleBasedRedirect = ({ path }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/getrole', {
+          const res = await fetch('https://backend-classroom.vercel.app/api/auth/getrole', {
             method: 'GET',
             headers: {
               'auth-token': localStorage.getItem('token'),
