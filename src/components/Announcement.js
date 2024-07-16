@@ -1,4 +1,3 @@
-// Frontend: Announcement.js
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, TextField, Button } from '@mui/material';
 
@@ -13,7 +12,7 @@ const AnnouncementSection = () => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await fetch('https://classroom-backend-uv6g.onrender.com/api/auth/getannouncement', {
+        const response = await fetch('https://classroom-backend-one.vercel.app/api/auth/getannouncement', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -49,7 +48,7 @@ const AnnouncementSection = () => {
       formData.append('content', announcementContent.trim());
       files.forEach(file => formData.append('files', file));
 
-      const response = await fetch('https://classroom-backend-uv6g.onrender.com/api/auth/postannouncement', {
+      const response = await fetch('https://classroom-backend-one.vercel.app/api/auth/postannouncement', {
         method: 'POST',
         headers: {
           'auth-token': localStorage.getItem('token'),
@@ -140,24 +139,27 @@ const AnnouncementSection = () => {
       <Typography variant="h5" component="div" sx={{ mt: 4, mb: 2 }}>
         Announcements
       </Typography>
-      {announcements.length === 0 ? (<Typography variant='body1' sx = {{mt : 2}}>
-        No announcements availiable.
-      </Typography>
-      ) :(announcements.map((announcement, index) => (
-        <div key={index} style={{ marginBottom: '16px', padding: '16px', border: '1px solid #ccc' }}>
-          <Typography variant="h6">{announcement.title}</Typography>
-          <Typography variant="body1">{announcement.content}</Typography>
-          <Typography variant="subtitle2">Posted by: {announcement.creatorName}</Typography>
-          <Typography variant="subtitle2">Date: {formatDate(announcement.date)}</Typography>
-          {announcement.files && announcement.files.map((file, fileIndex) => (
-            <div key={fileIndex}>
-              <a href={`https://classroom-backend-uv6g.onrender.com/files/${file}`} target="_blank" rel="noopener noreferrer">
-                {file}
-              </a>
-            </div>
-          ))}
-        </div>
-      )))}
+      {announcements.length === 0 ? (
+        <Typography variant='body1' sx={{ mt: 2 }}>
+          No announcements available.
+        </Typography>
+      ) : (
+        announcements.map((announcement, index) => (
+          <div key={index} style={{ marginBottom: '16px', padding: '16px', border: '1px solid #ccc' }}>
+            <Typography variant="h6">{announcement.title}</Typography>
+            <Typography variant="body1">{announcement.content}</Typography>
+            <Typography variant="subtitle2">Posted by: {announcement.creatorName}</Typography>
+            <Typography variant="subtitle2">Date: {formatDate(announcement.date)}</Typography>
+            {announcement.files && announcement.files.map((file, fileIndex) => (
+              <div key={fileIndex}>
+                <a href={`https://drive.google.com/uc?id=${file}`} target="_blank" rel="noopener noreferrer">
+                  {file}
+                </a>
+              </div>
+            ))}
+          </div>
+        ))
+      )}
     </Container>
   );
 };
