@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, TextField, Button, Input, List, ListItem, ListItemText, Link } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-
 const TAssignment = () => {
     const [assignmentTitle, setAssignmentTitle] = useState('');
     const [assignmentFile, setAssignmentFile] = useState(null);
@@ -14,7 +13,7 @@ const TAssignment = () => {
 
     const fetchAssignments = async () => {
         try {
-            const res = await fetch('https://classroom-backend-uv6g.onrender.com/api/auth/getassignment', {
+            const res = await fetch('https://classroom-backend-one.vercel.app/auth/getassignment', {
                 method: 'GET',
                 headers: {
                     'auth-token': localStorage.getItem('token'),
@@ -38,7 +37,7 @@ const TAssignment = () => {
         formData.append('file', assignmentFile);
 
         try {
-            const res = await fetch('https://classroom-backend-uv6g.onrender.com/api/auth/postassignment', {
+            const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/postassignment', {
                 method: 'POST',
                 headers: {
                     'auth-token': localStorage.getItem('token'),
@@ -102,7 +101,7 @@ const TAssignment = () => {
                                 primary={`Title: ${assignment.title}`}
                                 secondary={
                                     assignment.file && (
-                                        <Link href={`https://classroom-backend-uv6g.onrender.com/files/${assignment.file}`} target="_blank" rel="noopener noreferrer">
+                                        <Link href={`https://drive.google.com/uc?id=${assignment.file}`} target="_blank" rel="noopener noreferrer">
                                             {assignment.file}
                                         </Link>
                                     )
@@ -115,7 +114,7 @@ const TAssignment = () => {
                                             primary={`Student: ${student.name}`}
                                             secondary={
                                                 student.file && (
-                                                    <Link href={`https://classroom-backend-uv6g.onrender.com/files/${student.file}`} target="_blank" rel="noopener noreferrer">
+                                                    <Link href={`https://drive.google.com/uc?id=${student.file}`} target="_blank" rel="noopener noreferrer">
                                                         {student.file}
                                                     </Link>
                                                 )
