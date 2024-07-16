@@ -22,7 +22,7 @@ const SubmitAssignment = () => {
         formData.append('file', assignmentFile);
 
         try {
-            const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/submitassignment', {
+            const res = await fetch('https://backend-classroom.vercel.app/api/auth/submitassignment', {
                 method: 'POST',
                 headers: {
                     'auth-token': localStorage.getItem('token'),
