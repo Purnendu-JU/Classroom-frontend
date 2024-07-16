@@ -12,7 +12,7 @@ const SAssignment = () => {
 
     const fetchAssignments = async () => {
         try {
-            const res = await fetch('https://classroom-backend-one.vercel.app/api/auth/getassignment', {
+            const res = await fetch('https://backend-classroom.vercel.app/api/auth/getassignment', {
                 method: 'GET',
                 headers: {
                     'auth-token': localStorage.getItem('token'),
